@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Yu Gothic';
+    src: url('../fonts/jp-fonts/yugothib.ttf');
+}
+
+@font-face {
+    font-family: 'Hiragino Kaku Gothic ProN W3';
+    src: url('../fonts/jp-fonts/HiraginoKakuGothicProNW3.woff2') format('woff2');
+}

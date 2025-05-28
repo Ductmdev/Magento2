@@ -1,0 +1,12 @@
+<?php
+/**
+ * @var Bap\Widget\Block\Widget\ImageWidget $block
+ */
+?>
+<div class="main-content">
+    <div class="image">
+        <?php if ($block->getData('image')): ?>
+            <img src="<?= $block->getData('image'); ?>" alt="widget-image">
+        <?php endif; ?>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="temp_customer" resource="default" engine="innodb" comment="Customer Verification">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="225" comment="Email"/>
+        <column xsi:type="varchar" name="code" nullable="true" length="10" comment="Verify code"/>
+        <column xsi:type="varchar" name="token" nullable="false" length="225" comment="Verify Token"/>
+        <column xsi:type="datetime" name="expired_at" nullable="true" on_update="false"
+                comment="Verify code expired at"/>
+        <column xsi:type="tinyint" name="status" unsigned="true" nullable="false" identity="false"
+                comment="Verify code status"/>
+        <column xsi:type="tinyint" name="failed_attempts" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Failed Attempts"/>
+        <column xsi:type="boolean" name="is_disabled"
+                default="false" comment="Email Disable"/>
+        <column xsi:type="datetime" name="disabled_until" nullable="true" on_update="false"
+                comment="Time Email Disabled"/>
+        <column xsi:type="smallint" name="website_id" unsigned="true" nullable="true" identity="false"
+                comment="Website ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false"
+                default="0" comment="Store ID"/>
+        <column xsi:type="text" name="temp_data" nullable="false" comment="Temp Data"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="TEMP_CUSTOMER_STORE_ID_STORE_STORE_ID" table="temp_customer"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="TEMP_CUSTOMER_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID"
+                    table="temp_customer" column="website_id" referenceTable="store_website"
+                    referenceColumn="website_id" onDelete="SET NULL"/>
+        <index referenceId="TEMP_CUSTOMER_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <index referenceId="TEMP_CUSTOMER_WEBSITE_ID" indexType="btree">
+            <column name="website_id"/>
+        </index>
+    </table>
+</schema>

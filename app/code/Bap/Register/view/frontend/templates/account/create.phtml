@@ -1,0 +1,400 @@
+<?php
+/** @var \Magento\Customer\Block\Form\Register $block */
+?>
+<section class="bcs_fr-01-05-02">
+    <div class="bcs_step bcs_pt5">
+        <div class="bcs_bar">
+            <div class="bcs_indicate bcs_s1" style="width: 20%"></div>
+        </div><div class="bcs_step1 bcs_stepIconActive bcs_current"><?= $block->escapeHtml(__('Entering information')) ?></div>
+        <div class="bcs_step2 bcs_stepIcon"><?= $block->escapeHtml(__('Confirm input contents')) ?></div>
+        <div class="bcs_step3 bcs_stepIcon"><?= $block->escapeHtml(__('Registration completed')) ?></div>
+    </div>
+</section>
+<div class="bcs_attentionPanel bcs_mb30 inclArea pc_w700" style="display: none">
+    <p class="bcs_title"><?= $block->escapeHtml(__('Please check')) ?></p>
+    <ul><li><?= $block->escapeHtml(__('Some items are not entered correctly. Please check the items displayed in red.')) ?></li></ul>
+</div>
+<?= /* @noEscape */ $block->getChildHtml('form_fields_before') ?>
+<?php /* Extensions placeholder */ ?>
+<?= /* @noEscape */ $block->getChildHtml('customer.form.register.extra') ?>
+<form class="form create form-create-account" action="<?= $block->escapeUrl($block->getUrl('customer/account/confirmpost')) ?>" method="post" id="form-validate" enctype="multipart/form-data" autocomplete="off">
+    <div id="CONTENTS">
+        <h1 id="TMP-H1-1" class="bcs_title_lv1_new"><?= $block->escapeHtml(__('New member registration')) ?></h1>
+        <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+        <input id="token" type="hidden" name="token" value="<?= $block->escapeHtmlAttr($block->getFormData()->getData('token')) ?>">
+
+        <section class="personal-info">
+            <table id="TMP-TBL-1" class="bcs_table bcs_tableSp bcs_mb20">
+                <tbody>
+                <tr>
+                    <th class="">
+                        <span class="<?= ($block->getFormData()->getData('lastname') && $block->getFormData()->getData('firstname')) ? 'bcs_label_gray' : 'bcs_label' ?>"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Name (full-width)')) ?>
+                    </th>
+                    <td class="">
+                        <div class="pc_dib sp_db fullName completeParant">
+                            <span class="bcs_spdb"><input class="input-text lastname-required" id="lastname" type="text" name="lastname" value="<?= $block->escapeHtmlAttr($block->getFormData()->getData('lastname')) ?>" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('Last Name')) ?>" data-validate="{'lastname-required':true}"></span>
+                            <span><input class="input-text firstname-required" id="firstname" style="" type="text" name="firstname" value="<?= $block->escapeHtmlAttr($block->getFormData()->getData('firstname')) ?>" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('First Name')) ?>" data-validate="{'firstname-required':true}"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="">
+                        <span class="<?= ($block->getFormData()->getData('lastnamekana') && $block->getFormData()->getData('firstnamekana')) ? 'bcs_label_gray' : 'bcs_label' ?>"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Furigana (full-width)')) ?>
+                    </th>
+                    <td class="">
+                        <div class="fullName completeParant">
+                            <span class="bcs_spdb"><input class="input-text lastnamekana-required validate-lastnamekana-fullwidth" id="lastnamekana" type="text" name="lastnamekana" value="<?= $block->escapeHtmlAttr($block->getFormData()->getData('lastnamekana')) ?>" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('Sei')) ?>" data-validate='{"lastnamekana-required":true, "validate-lastnamekana-fullwidth": true}'></span>
+                            <span class=""><input class="input-text firstnamekana-required validate-firstnamekana-fullwidth" id="firstnamekana" style="" type="text" name="firstnamekana" value="<?= $block->escapeHtmlAttr($block->getFormData()->getData('firstnamekana')) ?>" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('May')) ?>" data-validate='{"firstnamekana-required":true, "validate-firstnamekana-fullwidth": true}'></span>
+                        </div>
+                    </td>
+                </tr>
+                <?php
+                    $gender = $block->getFormData()->getData('gender');
+                ?>
+                <tr>
+                    <th class="">
+                        <span class="<?= $gender ? 'bcs_label_gray' : 'bcs_label' ?>"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Gender')) ?>
+                    </th>
+                    <td class="radio-gender">
+                        <div style="display: flex">
+                            <label class="bcs_mr20">
+                                <input type="radio" name="gender" id="male" class="radio gender-required" value="1" data-validate="{'gender-required':true}" <?php if ($gender == 1) echo "checked" ?>><?= $block->escapeHtml(__('Male')) ?>
+                            </label>
+                            <label class="bcs_mr20">
+                                <input type="radio" name="gender" id="female" class="radio gender-required" value="2" data-validate="{'gender-required':true}" <?php if ($gender == 2) echo "checked" ?>><?= $block->escapeHtml(__('Female')) ?>
+                            </label>
+                            <label class="bcs_mr20">
+                                <input type="radio" name="gender" id="no-answer" class="radio gender-required" value="3" data-validate="{'gender-required':true}" <?php if ($gender == 3) echo "checked" ?>><?= $block->escapeHtml(__('No answer')) ?>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <?php
+                        $year = $block->getFormData()->getData('year');
+                        $month = $block->getFormData()->getData('month');
+                        $day = $block->getFormData()->getData('day');
+                    ?>
+                    <th id="birthDate" class="">
+                        <span class="<?= ($year && $month && $day) ? 'bcs_label_gray' : 'bcs_label' ?>"><?= $block->escapeHtml(__('Is Required')) ?></span>
+                        <?= $block->escapeHtml(__('date of birth')) ?>
+                    </th>
+                    <td class="">
+                        <div id="dob" class="completeParant" style="display: flex; gap: 10px">
+                            <div class="year">
+                                <select id="BIRTH_DT_YEAR" name="year" class="borderBox year dob-required valid-dob" data-validate='{"dob-required": {"year": "#BIRTH_DT_YEAR", "month": "#BIRTH_DT_MONTH", "day": "#BIRTH_DT_DAY"}, "valid-dob": {"year": "#BIRTH_DT_YEAR", "month": "#BIRTH_DT_MONTH", "day": "#BIRTH_DT_DAY"}}'>
+                                    <option value="">----</option>
+                                    <?php
+                                        for ($i = 2025; $i >= 1925; $i--) {
+                                            ?>
+                                            <option value="<?= $i ?>" <?= ($i == $year) ? 'selected' : '' ?>><?= $i ?></option>
+                                            <?php
+                                        }
+                                    ?>
+                                </select>
+                                <span class="vam"><?= $block->escapeHtml(__('YY')) ?></span>
+                            </div>
+                            <div class="month">
+                                <select id="BIRTH_DT_MONTH" name="month" class="borderBox month">
+                                    <option value="">--</option>
+                                    <?php
+                                    for ($i = 1; $i <= 12; $i++) {
+                                        ?>
+                                        <option value="<?= $i ?>" <?= ($i == $month) ? 'selected' : '' ?>><?= $i ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                                <span class="vam"><?= $block->escapeHtml(__('MM')) ?></span>
+                            </div>
+                            <div class="day">
+                                <select id="BIRTH_DT_DAY" name="day" class="borderBox day">
+                                    <option value="">--</option>
+                                    <?php
+                                    for ($i = 1; $i <= 31; $i++) {
+                                        ?>
+                                        <option value="<?= $i ?>" <?= ($i == $day) ? 'selected' : '' ?>><?= $i ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                                <span class="vam"><?= $block->escapeHtml(__('Day')) ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="address">
+            <table id="TMP-TBL-3" class="bcs_table bcs_tableSp bcs_mb20">
+                <tbody>
+                <input type="hidden" name="create_address" value="1" />
+                <input type="hidden" name="default_billing" value="1">
+                <input type="hidden" name="default_shipping" value="1">
+                <tr>
+                    <th class="">
+                        <span class="<?= ($block->getFormData()->getPostcode()) ? 'bcs_label_gray' : 'bcs_label' ?>"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Zip/Postal Code')) ?>
+                        <p style="margin-left: 2em;">（<?= $block->escapeHtml(__('half-width numbers')) ?>）</p></th>
+                    <?php
+                        $postcode = $block->getFormData()->getPostcode() ?? '';
+                        if (strpos($postcode, '-') !== false) {
+                            $postcode = str_replace('-', '', $postcode);
+                        }
+                    ?>
+                    <td class="">
+                        <div class="field zip required" style="margin-bottom: 5px">
+                            <div class="control">
+                                <input type="text" name="postcode" value="<?= $block->escapeHtmlAttr($postcode) ?>" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('postcode') ?>" id="zip" class="input-text validate-zip-international zip-required" size="5" maxlength="8" style="width: 220px !important;" placeholder="<?= $block->escapeHtmlAttr(__('Postal code (no hyphens)')) ?>">
+                            </div>
+                        </div>
+                        <span class="bcs_link">
+                    </td>
+                </tr>
+                <div class="field country required">
+                    <label for="country" class="label"><span><?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('country_id') ?></span></label>
+                    <div class="control">
+                        <?= /* @noEscape */ $block->getCountryHtmlSelect() ?>
+                    </div>
+                </div>
+                <tr class="bcs_w30p">
+                    <th class="">
+                        <span class="<?= ($block->getFormData()->getData('address')) ? 'bcs_label_gray' : 'bcs_label' ?>"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Address')) ?>
+                    </th>
+                    <?php
+                        $region = $block->getRegion();
+                        $city = $block->getFormData()->getCity();
+                        $street = $block->getFormData()->getData('temp_street') ? $block->getFormData()->getData('temp_street')[0] : '';
+                        $isDisabled = false;
+
+                        if (is_array($block->getFormData()->getData('temp_street'))) {
+                            $isDisabled = true;
+                        }
+                    ?>
+                    <td class="">
+                        <div class="bcs_mb10">
+                            <p id="zipAddr" class="bcs_fs12">
+                                <select id="region_id" name="region_id" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('region') ?>" class="region_id region-required" data-validate='{"region-required":true}'>
+                                    <option value=""><?= $block->escapeHtml(__('Please select a region, state or province.')) ?></option>
+                                </select>
+                                <input type="text" id="region" name="region" value="<?= $block->escapeHtml($block->getRegion()) ?>" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('region') ?>" class="input-text required-entry">
+                                <input type="text" name="city" value="<?= $block->escapeHtmlAttr($block->getFormData()->getCity()) ?>" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('city') ?>" class="input-text city-required" id="city" data-validate='{"city-required":true}'>
+                                <input type="text" name="street[]" value="<?= $block->escapeHtmlAttr($block->getFormData()->getStreet(0)) ?>" title="<?= /* @noEscape */ $block->getAttributeData()->getFrontendLabel('street') ?>" id="street_1" class="input-text street-required" data-validate='{"street-required":true}' <?= $isDisabled ? 'disabled' : '' ?>>
+                                <input type="hidden" name="temp_street[]" id="temp_street" />
+                            </p>
+                            <p id="candidateAddr" class="candidate">
+                                <span id="remindtext" class="remindtext">
+                                    <?= $block->escapeHtml(
+                                        empty($region) || empty($city)
+                                            ? __('Please enter the zip/postal code.')
+                                            : $region . ' ' . $city . ' ' . $street
+                                    ); ?>
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="bcs_mb10 completeParant" style="display: flex">
+                            <span class="bcs_fs12 posttext"><?= $block->escapeHtml(__('block address')) ?></span>
+                            <span>
+                                <input class="input-text street-required street_2" id="street_2" type="text" name="address[]" value="<?= $block->escapeHtmlAttr(empty($region) || empty($city) ? '' : $block->getFormData()->getData('address')[0]) ?>" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('Example) 0-1-2')) ?> "
+                                    <?= $block->escapeHtml(
+                                    empty($region) || empty($city)
+                                        ? 'disabled'
+                                        : ''
+                                ); ?> data-validate='{"street-required":true}' style="width: 340px">
+                            </span>
+                        </div>
+
+                        <div class="bcs_mb0 completeParant" style="display: flex">
+                            <span class="bcs_fs12 posttext"><?= $block->escapeHtml(__('Building name')) ?></span>
+                            <span>
+                                <input id="street_3" type="text" class="identicalwidth street_3" name="address[]" value="<?= $block->escapeHtmlAttr(empty($region) || empty($city) ? '' : $block->getFormData()->getData('address')[1]) ?>" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('Example) Big Building Room 345')) ?>"
+                                    <?= $block->escapeHtml(
+                                    empty($region) || empty($city)
+                                        ? 'disabled'
+                                        : ''
+                                ); ?> style="width: 340px">
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="bcs_tellBox">
+                    <th class="">
+                        <span class="<?= ($block->getFormData()->getData('telephone')) ? 'bcs_label_gray' : 'bcs_label' ?>"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Phone Number')) ?>
+                        <p style="margin-left: 2em;">（<?= $block->escapeHtml(__('half-width numbers')) ?>）</p></th>
+                    <td class="">
+                        <div class="completeParant">
+                            <span><input id="telephone" class="phone-required phoneJP" type="tel" name="telephone" maxlength="13" value="<?= $block->escapeHtmlAttr($block->getFormData()->getData('telephone')) ?>" style="width: calc(100% - 24px )!important;" placeholder="<?= $block->escapeHtmlAttr(__('Phone number (no hyphen)')) ?>" data-validate='{"phone-required":true, "phoneJP":true}'></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="account">
+            <table id="TMP-TBL-2" class="bcs_table bcs_tableSp bcs_mb20"><tbody>
+                <tr class="bcs_mailBox">
+                    <th><span class="bcs_label_gray"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Member ID')) ?><p style="margin-left: 2em;">（<?= $block->escapeHtml(__('By Email')) ?>）</p></th>
+                    <td class="bcs_eml_addr">
+                        <div class="completeParant" style="padding: 10px 0 10px 0">
+                            <span style="font-size:16px;"><?= $block->escapeHtml($block->getFormData()->getEmail()) ?></span>
+                            <input type="hidden" name="email" value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()) ?>" autocomplete="off">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="bcs_mailBox">
+                    <th class=""><span class="bcs_label"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Password')) ?><p style="margin-left: 2em;">（<?= $block->escapeHtml(__('Mixed half-width alphanumeric characters')) ?>）</p></th>
+                    <td class="">
+                        <div class="bcs_mb10 completeParant PassBox">
+                            <input id="password" type="password" name="password" size="10" maxlength="100" autocomplete="off" class="realTimeErrorInput input-text password-required min-length-password-7 alphanum-only"
+                                    data-validate='{"password-required":true, "min-length-password":7, "alphanum-only":true}'>
+                            <label class="PassDisp"><input name="PD-CheckBox" value="1" type="checkbox" id="togglePassword"><span></span></label>
+                            <p>
+                                <span id="tooltips_BIC_PW" style="color: rgb(230, 0, 18); display: inline-block;">7文字以上100文字以下</span>
+                                (<?= $block->escapeHtml(__('After')) ?><span id="remain_BIC_PW">100</span><?= $block->escapeHtml(__('You can enter characters')) ?>）
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="bcs_mailBox">
+                    <th class=""><span class="bcs_label"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Confirm Password')) ?><p style="margin-left: 2em;"></p></th>
+                    <td class="">
+                        <div class="bcs_mb10 completeParant PassBox">
+                            <input type="password" name="password_confirmation" id="confirm_password" size="10" maxlength="100" autocomplete="off" class="realTimeErrorInput input-text password-required" data-validate='{"password-required":true, "sameAsPassword":"#password"}'>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="personal-info">
+            <table id="TMP-TBL-2" class="bcs_table bcs_tableSp bcs_mb20"><tbody>
+                <tr class="bcs_mailBox">
+                    <th class=""><?= $block->escapeHtmlAttr(__('Mail magazine distribution')) ?></th>
+                    <td class="">
+                        <?php $subscribed = $block->getFormData()->getIsSubscribed()?>
+                        <div class="completeParant">
+                            <label>
+                                <input type="checkbox" name="is_subscribed" title="<?= $block->escapeHtmlAttr(__('Mail magazine distribution')) ?>" value="1" id="is_subscribed" <?= ($subscribed !== 0 && !isset($subscribed)) || $subscribed == 1 ? 'checked' : '' ?> class="checkbox">
+                                <span><?= $block->escapeHtml(__('Receive great deals such as sales and coupons')) ?></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="actions-toolbar cus">
+            <div class="primary">
+                <p style="text-align: left; font-size: 11px" class="notice"><?= $block->escapeHtml(__('The terms and conditions apply to the use of this site<br>Please check the above terms and conditions before applying.'), ['br']) ?></p>
+                <button type="submit" id="preview-submit" class="action submit primary" title="<?= $block->escapeHtmlAttr(__('Agree to the terms and proceed to confirmation')) ?>"><span><?= $block->escapeHtml(__('Agree to the terms and proceed to confirmation')) ?></span></button>
+            </div>
+        </div>
+        <div class="bcs_buttonBox">
+            <p class="bcs_btn_gray"><a href="#" id="confirmBack"><?= $block->escapeHtmlAttr(__('Back')) ?></a></p>
+        </div>
+    </div>
+</form>
+<div id="cboxOverlay" style="opacity: 0; cursor: pointer; visibility: visible; display: none;"></div>
+<div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none; visibility: visible; top: 75%; left: 50%; transform: translate(-50%, -50%); position: absolute; width: 542px; height: 198px;">
+    <div id="cboxWrapper" style="height: 198px; width: 542px;">
+        <div>
+            <div id="cboxTopLeft" style="float: left;"></div>
+            <div id="cboxTopCenter" style="float: left; width: 500px;"></div>
+            <div id="cboxTopRight" style="float: left;"></div>
+        </div>
+        <div style="clear: left;">
+            <div id="cboxMiddleLeft" style="float: left; height: 156px;"></div>
+            <div id="cboxContent" style="float: left; width: 500px; height: 176px;">
+                <div id="cboxLoadedContent" style="width: 500px; height: 148px;">
+                    <div>
+                        <div class="backConfirm">
+                            <div class="back_both">
+                                <p class="back_confirm"><?= $block->escapeHtml(__('Do you want to leave this page?')) ?></p>
+                                <p class="back_card"><?= $block->escapeHtml(__('If you move the page, the information you have entered so far will be discarded.')) ?></p>
+                            </div>
+                            <div class="confirm_button">
+                                <p class="back_leave back_hover">
+                                    <a class="a_hover" href="<?= $block->getUrl('customer/account/login') ?>"><?= $block->escapeHtml(__('Discard and move contents')) ?></a>
+                                </p>
+                                <p class="back_proceed back_hover">
+                                    <a class="b_ahover" href="#"><?= $block->escapeHtml(__('continue typing')) ?></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="cboxTitle" style="float: left; display: block;"></div>
+                <div id="cboxCurrent" style="float: left; display: none;"></div>
+                <button type="button" id="cboxPrevious" style="display: none;"></button>
+                <button type="button" id="cboxNext" style="display: none;"></button>
+                <button id="cboxSlideshow" style="display: none;"></button>
+                <div id="cboxLoadingOverlay" style="float: left; display: none;"></div>
+                <div id="cboxLoadingGraphic" style="float: left; display: none;"></div>
+            </div>
+            <div id="cboxMiddleRight" style="float: left; height: 156px;"></div>
+        </div>
+        <div style="clear: left;">
+            <div id="cboxBottomLeft" style="float: left;"></div>
+            <div id="cboxBottomCenter" style="float: left; width: 500px;"></div>
+            <div id="cboxBottomRight" style="float: left;"></div>
+        </div>
+    </div>
+    <div style="position: absolute; width: 9999px; visibility: hidden; max-width: none; display: none;"></div>
+</div>
+<?php if ($block->getShowAddressFields()): ?>
+    <?php
+    $regionProvider = $block->getRegionProvider();
+    $regionJson = /* @noEscape */ $regionProvider->getRegionJson();
+    $formData = $block->getFormData();
+    $regionId = (int) $formData->getRegionId();
+    /** @var \Magento\Directory\Helper\Data $directoryHelper */
+    $directoryHelper = $block->getData('directoryHelper');
+    $countriesWithOptionalZip = /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true);
+    $displayAll = $block->getConfig('general/region/display_all');
+    ?>
+    <script type="text/x-magento-init">
+        {
+            "#country": {
+                "directoryRegionUpdater": {
+                    "optionalRegionAllowed": <?= /* @noEscape */ $displayAll ? 'true' : 'false' ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= /* @noEscape */ $regionJson ?>,
+                "defaultRegion": "<?= /* @noEscape */ $regionId ?>",
+                "countriesWithOptionalZip": <?=  /* @noEscape */ $countriesWithOptionalZip ?>
+                }
+            }
+        }
+    </script>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        ".field.password": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-create-account"
+            }
+        },
+        "#dob": {
+            "Bap_Register/js/date-picker": {}
+        },
+        "#form-validate": {
+            "Bap_Register/js/create": {
+                "urlTimeout": "<?= $block->getUrl("customer/account/timeout") ?>"
+            }
+        }
+    }
+</script>
+
+<style>
+    h1.page-title {
+        display: none !important;
+    }
+</style>

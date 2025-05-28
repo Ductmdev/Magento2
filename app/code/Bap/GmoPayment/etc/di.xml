@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Payment method facade configs -->
+    <virtualType name="GmoPaymentFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Bap\GmoPayment\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Bap\GmoPayment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Bap\GmoPayment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">GmoPaymentValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">GmoPaymentValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">GmoPaymentCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <!-- End Payment method facade configs -->
+
+    <!-- Validators -->
+    <virtualType name="GmoPaymentCountryValidator" type="Magento\Payment\Gateway\Validator\CountryValidator">
+        <arguments>
+            <argument name="config" xsi:type="object">Bap\GmoPayment\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <!-- End Validators -->
+    
+    <!-- Commands -->
+    <virtualType name="GmoPaymentAuthorizeCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">GmoPaymentAuthorizeRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Bap\GmoPayment\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Bap\GmoPayment\Gateway\Http\Client\TransactionRegister</argument>
+            <argument name="handler" xsi:type="object">GmoPaymentAuthorizationHandler</argument>
+            <argument name="validator" xsi:type="object">Bap\GmoPayment\Gateway\Validator\ResponseValidator</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GmoPaymentCaptureCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">GmoPaymentCaptureRequest</argument>
+            <argument name="transferFactory" xsi:type="object">Bap\GmoPayment\Gateway\Http\TransferFactory</argument>
+            <argument name="client" xsi:type="object">Bap\GmoPayment\Gateway\Http\Client\CaptureTransaction</argument>
+            <argument name="handler" xsi:type="object">Bap\GmoPayment\Gateway\Response\CaptureTransactionHandler</argument>
+            <argument name="validator" xsi:type="object">Bap\GmoPayment\Gateway\Validator\ResponseValidator</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GmoPaymentAuthorizeAndCaptureCommand" type="GmoPaymentAuthorizeCommand"></virtualType>
+    <!-- End Command -->
+
+    <!-- Value handlers -->
+    <virtualType name="GmoPaymentValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="country" xsi:type="string">GmoPaymentCountryValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GmoPaymentCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="authorize" xsi:type="string">GmoPaymentAuthorizeCommand</item>
+                <item name="sale" xsi:type="string">GmoPaymentAuthorizeAndCaptureCommand</item>
+                <item name="capture" xsi:type="string">GmoPaymentCaptureCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GmoPaymentValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">GmoPaymentConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GmoPaymentConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">Bap\GmoPayment\Gateway\Config\Config</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GmoPaymentAuthorizationHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="payment_details" xsi:type="string">Bap\GmoPayment\Gateway\Response\PaymentDetailsHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GmoPaymentAuthorizeRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="customer" xsi:type="string">Bap\GmoPayment\Gateway\Request\CustomerDataBuilder</item>
+                <item name="payment" xsi:type="string">Bap\GmoPayment\Gateway\Request\PaymentDataBuilder</item>
+                <item name="3dsecure" xsi:type="string">Bap\GmoPayment\Gateway\Request\ThreeDSecureDataBuilder</item>
+                <item name="gmo_config" xsi:type="string">Bap\GmoPayment\Gateway\Request\GmoPaymentConfigDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GmoPaymentCaptureRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="capture" xsi:type="string">Bap\GmoPayment\Gateway\Request\CaptureDataBuilder</item>
+                <item name="gmo_config" xsi:type="string">Bap\GmoPayment\Gateway\Request\GmoPaymentConfigDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- End Value handlers -->
+
+    <!-- Config reader -->
+    <type name="Bap\GmoPayment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Bap\GmoPayment\Model\Ui\ConfigProvider::CODE</argument>
+        </arguments>
+    </type>
+    <type name="Bap\GmoPayment\Gateway\Http\Client\TransactionRegister">
+        <arguments>
+            <argument name="paymentService" xsi:type="object">Bap\GmoPayment\Gateway\Service\CreditCardService</argument>
+        </arguments>
+    </type>
+    <type name="Bap\GmoPayment\Gateway\Http\Client\CaptureTransaction">
+        <arguments>
+            <argument name="paymentService" xsi:type="object">Bap\GmoPayment\Gateway\Service\CreditCardService</argument>
+        </arguments>
+    </type>
+    <type name="Bap\GmoPayment\Controller\Threedsecure\Callback">
+        <arguments>
+            <argument name="authenticateTran" xsi:type="object">Bap\GmoPayment\Gateway\Service\CreditCardService</argument>
+        </arguments>
+    </type>
+    <!-- End Config reader -->
+
+    <preference for="Bap\GmoPayment\Api\ThreeDSecureUrlInterface" type="Bap\GmoPayment\Model\ThreeDSecureUrl" />
+    <preference for="Bap\GmoPayment\Api\Data\TransactionDetailDataInterface" type="Bap\GmoPayment\Model\TransactionDetail" />
+</config>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="bap_inventory_source_item_jan" resource="default" engine="innodb" comment="JAN Inventory Table">
+        <column name="source_item_id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Source Item ID"/>
+        <column name="source_code" xsi:type="varchar" length="255" nullable="false" comment="Warehouse Code"/>
+        <column name="bap_jancode" xsi:type="varchar" length="64" nullable="false" comment="JAN Code"/>
+        <column name="quantity" xsi:type="decimal" precision="12" scale="4" nullable="false" default="0.0000" comment="Quantity"/>
+        <column name="status" xsi:type="smallint" unsigned="true" nullable="false" default="0" comment="Status (0: 在庫切れ、, 1: 在庫あり)"/>
+        <column name="created_at" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column name="updated_at" xsi:type="timestamp" nullable="false" on_update="true" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="source_item_id"/>
+        </constraint>
+
+        <index referenceId="BAP_JANCODE_INDEX">
+            <column name="bap_jancode"/>
+        </index>
+    </table>
+</schema>

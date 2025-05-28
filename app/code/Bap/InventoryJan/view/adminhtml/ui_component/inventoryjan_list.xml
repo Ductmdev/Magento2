@@ -1,0 +1,143 @@
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">inventoryjan_list.inventoryjan_inventory_list_data_source</item>
+            <item name="deps" xsi:type="string">inventoryjan_list.inventoryjan_inventory_list_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">spinner_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="name" xsi:type="string">add</item>
+                <item name="label" xsi:type="string" translate="true">New registration</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/create</item>
+            </item>
+        </item>
+    </argument>
+
+    <dataSource name="nameOfDataSource">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">inventoryjan_inventory_list_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">source_item_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">source_item_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters" />
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="spinner_columns">
+        <column name="bap_jancode" sortOrder="10">
+            <settings>
+                <filter>text</filter>
+                <sortable>false</sortable>
+                <label translate="true">JAN Code</label>
+            </settings>
+        </column>
+
+        <column name="name" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <sortable>false</sortable>
+                <label translate="true">Product Name</label>
+            </settings>
+        </column>
+
+        <column name="set_item" component="Magento_Ui/js/grid/columns/select" sortOrder="30">
+            <settings>
+                <dataType>select</dataType>
+                <sortable>false</sortable>
+                <label translate="true">Set Product</label>
+                <options>
+                    <option name="0" xsi:type="array">
+                        <item name="value" xsi:type="string">0</item>
+                        <item name="label" xsi:type="string" translate="true">No</item>
+                    </option>
+                    <option name="1" xsi:type="array">
+                        <item name="value" xsi:type="string">1</item>
+                        <item name="label" xsi:type="string" translate="true">Yes</item>
+                    </option>
+                </options>
+            </settings>
+        </column>
+
+        <column name="source_code" component="Magento_Ui/js/grid/columns/select" sortOrder="40">
+            <settings>
+                <filter>select</filter>
+                <sortable>false</sortable>
+                <label translate="true">Warehouse</label>
+                <dataType>select</dataType>
+                <options class="Bap\InventoryJan\Model\Filter\SourceCodeOptions"/>
+            </settings>
+        </column>
+
+        <column name="quantity" class="Bap\InventoryJan\Ui\Component\Listing\Column\Quantity" sortOrder="50">
+            <settings>
+                <filter>textRange</filter>
+                <sortable>false</sortable>
+                <label translate="true">Quantity In Stock</label>
+            </settings>
+        </column>
+
+        <column name="quantity_sale" sortOrder="60">
+            <settings>
+                <sortable>false</sortable>
+                <label translate="true">Available Quantity for Sale</label>
+            </settings>
+        </column>
+
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="70">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <sortable>false</sortable>
+                <label translate="true">Status</label>
+                <options>
+                    <option name="0" xsi:type="array">
+                        <item name="value" xsi:type="string">0</item>
+                        <item name="label" xsi:type="string" translate="true">Out Stock</item>
+                    </option>
+                    <option name="1" xsi:type="array">
+                        <item name="value" xsi:type="string">1</item>
+                        <item name="label" xsi:type="string" translate="true">In Stock</item>
+                    </option>
+                </options>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Bap\InventoryJan\Ui\Component\Listing\Column\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="action_list" xsi:type="array">
+                    <item name="edit" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Edit</item>
+                        <item name="path" xsi:type="string">inventoryjan/inventory/edit</item>
+                        <item name="params" xsi:type="array">
+                            <item name="id" xsi:type="string">source_item_id</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </actionsColumn>
+
+    </columns>
+</listing>

@@ -1,0 +1,31 @@
+{
+    "name": "community-engineering/module-japanese-yen-formatting",
+    "version": "1.0.3",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "description": "Magento2 extension for Yen formatting.",
+    "authors":[
+        {
+            "name": "Hirokazu Nishi",
+            "email": "nishi@veriteworks.co.jp",
+            "homepage": "https://veriteworks.co.jp/",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0",
+        "magento/framework": "^103.0.0",
+        "magento/module-directory": "^100.4.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CommunityEngineering\\JapaneseYenFormatting\\": ""
+        }
+    }
+}

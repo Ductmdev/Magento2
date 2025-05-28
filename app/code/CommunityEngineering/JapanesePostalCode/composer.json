@@ -1,0 +1,37 @@
+{
+    "name": "community-engineering/module-japanese-postal-code",
+    "version": "1.0.3",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "description": "Magento2 extension for Japanese postal codes processing.",
+    "authors":[
+        {
+            "name": "Hirokazu Nishi",
+            "email": "nishi@veriteworks.co.jp",
+            "homepage": "https://veriteworks.co.jp/",
+            "role": "developer"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0",
+        "magento/framework": "^103.0.0"
+    },
+    "suggest": {
+        "magento/module-customer": "^103.0.0",
+        "magento/module-checkout": "^100.4.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CommunityEngineering\\JapanesePostalCode\\": ""
+        }
+    }
+}

@@ -1,0 +1,23 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<div id="main" class="clearfix">
+    <h1 class="bcs_title_center"><?= $block->escapeHtml(__('Timed out')) ?></h1>
+    <div class="errorBox">
+        <p class="errorTxt"><?= $block->escapeHtml(__('Please log in again from the top page.')) ?></p>
+        <p><strong><?= $block->escapeHtml(__('Possible causes include:')) ?></strong></p>
+        <ul>
+            <li>・ <?= $block->escapeHtml(__('If you are logged in and have not operated for a long time')) ?></li>
+            <li>・ <?= $block->escapeHtml(__("If it's very crowded")) ?></li>
+        </ul>
+    </div>
+    <ul class="btnBoxgroup">
+        <li class="topBack btn_gray w100"><a href="<?= $block->escapeUrl($block->getUrl()) ?>"><?= $block->escapeHtml(__('Return to top page')) ?></a></li>
+    </ul>
+</div>
+
+<style>
+    h1.page-title {
+        display: none !important;
+    }
+</style>

@@ -1,0 +1,29 @@
+{
+  "temp_customer": {
+    "column": {
+      "id": true,
+      "email": true,
+      "code": true,
+      "token": true,
+      "expired_at": true,
+      "status": true,
+      "failed_attempts": true,
+      "is_disabled": true,
+      "disabled_until": true,
+      "website_id": true,
+      "store_id": true,
+      "temp_data": true,
+      "created_at": true,
+      "updated_at": true
+    },
+    "index": {
+      "TEMP_CUSTOMER_STORE_ID": true,
+      "TEMP_CUSTOMER_WEBSITE_ID": true
+    },
+    "constraint": {
+      "PRIMARY": true,
+      "TEMP_CUSTOMER_STORE_ID_STORE_STORE_ID": true,
+      "TEMP_CUSTOMER_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID": true
+    }
+  }
+}

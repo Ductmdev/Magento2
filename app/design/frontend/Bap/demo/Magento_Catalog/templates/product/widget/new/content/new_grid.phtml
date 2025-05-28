@@ -1,0 +1,168 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Template for displaying new products widget
+ *
+ * @var $block \Magento\Catalog\Block\Product\Widget\NewWidget
+ */
+
+// phpcs:disable Magento2.Files.LineLength.MaxExceeded
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+if (
+    $exist =
+        $block->getProductCollection() &&
+        $block->getProductCollection()->getSize()
+) {
+    $type = "widget-new-grid";
+    $mode = "grid";
+    $image = "new_products_content_widget_grid";
+    $title = __("New Products");
+    $items = $block->getProductCollection()->getItems();
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType =
+        \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+    $description = false;
+} ?>
+<?php if ($exist): ?>
+<div class="new-heading">
+    <img src="<?= $block->getViewFileUrl('Magento_Theme::images/new.png') ?>" alt="New product" />
+    <div class="new-pro-text">新着商品</div>
+</div>
+<div class="home-new-release-items" style="visibility: hidden;">
+    <div class="slick-slider">
+        <?php foreach ($items as $_item): ?>
+        <div class="product-item">
+            <div class="product-item-info">
+                <a href="<?= $block->escapeUrl(
+                    $block->getProductUrl($_item)
+                ) ?>" class="product-item-photo">
+                    <?= $block->getImage($_item, $image)->toHtml() ?>
+                </a>
+                <div class="product-item-details">
+                    <strong class="product-item-name">
+                        <a title="<?= $block->escapeHtml($_item->getName()) ?>"
+                            href="<?= $block->escapeUrl(
+                                $block->getProductUrl($_item)
+                            ) ?>"
+                            class="product-item-link">
+                            <?= $block->escapeHtml($_item->getName()) ?>
+                        </a>
+                    </strong>
+                    <?= $block->getProductPriceHtml($_item, $type); ?>
+
+              <?php if ($showWishlist || $showCompare || $showCart): ?>
+              <div class="product-item-actions">
+                <?php if ($showCart): ?>
+                  <div class="actions-primary">
+                    <?php if ($_item->isSaleable()): ?>
+                        <?php if (
+                            !$_item
+                                ->getTypeInstance()
+                                ->isPossibleBuyFromList($_item)
+                        ): ?>
+                            <button class="action tocart primary"
+                                    data-mage-init='{"redirectUrl":{"url":"<?= $block->escapeUrl(
+                                        $block->getAddToCartUrl($_item)
+                                    ) ?>"}}'
+                                    type="button"
+                                    title="<?= $block->escapeHtmlAttr(
+                                        __("Add to Cart")
+                                    ) ?>">
+                                <span><?= $block->escapeHtml(
+                                    __("Add to Cart")
+                                ) ?></span>
+                            </button>
+                        <?php
+                            /* @noEscape */
+                            /* @noEscape */
+                            else: ?>
+                        <?php
+                        $postDataHelper = $this->helper(
+                            Magento\Framework\Data\Helper\PostHelper::class
+                        );
+                        $postData = $postDataHelper->getPostData(
+                            $block->escapeUrl($block->getAddToCartUrl($_item)),
+                            ["product" => (int) $_item->getEntityId()]
+                        );
+                        ?>
+                        <button class="action tocart primary"
+                                data-post='<?= $postData ?>'
+                                type="button"
+                                title="<?= $block->escapeHtmlAttr(
+                                    __("Add to Cart")
+                                ) ?>">
+                            <span><?= $block->escapeHtml(
+                                __("Add to Cart")
+                            ) ?></span>
+                        </button>
+                    <?php endif; ?>
+                    <?php else: ?>
+                        <?php if ($_item->isAvailable()): ?>
+                            <div class="stock available">
+                                <span><?= $block->escapeHtml(
+                                    __("In stock")
+                                ) ?></span>
+                            </div>
+                        <?php else: ?>
+                            <div class="stock unavailable">
+                                <span><?= $block->escapeHtml(
+                                    __("Out of stock")
+                                ) ?></span>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                          </div>
+                      <?php endif; ?>
+                  </div>
+                <?php endif; ?>
+            </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+</div>
+
+<script>
+    require(['jquery', 'slick'], function($) {
+        $(document).ready(function() {
+            $('.slick-slider').slick({
+                slidesToShow: 6,
+                slidesToScroll: 6,
+                autoplay: false,
+                autoplaySpeed: 1000,
+                dots: false,
+                arrows: true,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+
+            $('.home-new-release-items').css('visibility', 'visible');
+        });
+    });
+</script>
+<?php endif; ?>

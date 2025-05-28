@@ -1,0 +1,30 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Welcome to %store_name" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var store.frontend_name":"Store Name",
+"var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL",
+"var this.getUrl($store,'customer/account/createPassword/',[_query:[id:$customer.id,token:$customer.rp_token],_nosid:1])":"Password Reset URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+<p>{{trans "%name Mr." name=$customerName}}</p>
+<p>{{trans '<a href="%link">%link</a>Thank you for using our service.' link="$this.getUrl($store)"|raw}}</p>
+<p>{{trans "Please enter the verification number below into the screen displayed on your browser."}}</p>
+<p>{{trans "Certification number:"}} {{var verifyCode}}</p>
+<p>{{trans "【Note】"}}</p>
+<p>※{{trans "The verification number is valid for 30 minutes after issuance."}}</p>
+<p>※{{trans "If a certification number is issued multiple times, the last certification number issued will be valid."}}</p>
+<p>※{{trans "If you do not recognize this email, please delete this email."}}</p>
+<p>{{trans "This email is for delivery only. Please note that we cannot accept replies."}}</p>
+<p>{{trans "If you have any questions, please contact us using the form below."}}</p>
+<p>*******************************************</p>
+<p>{{trans '%name network store support center' name="bap-ec"}}</p>
+<p>{{trans "Frequently Asked Questions (Click here for various inquiries)"}}</p>
+<p>{{trans '<a href="%link">%link</a>' link="$this.getUrl($store)"|raw}}</p>
+<p>*******************************************</p>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework/ObjectManager/etc/config.xsd">
+    <preference for="Mageplaza\Blog\Block\Widget\Posts" type="Bap\CustomBlog\Block\Widget\Posts" />
+    <preference for="Mageplaza\Blog\Block\Tag\Listpost" type="Bap\CustomBlog\Block\Tag\Listpost" />
+    <preference for="Mageplaza\Blog\Block\Topic\Listpost" type="Bap\CustomBlog\Block\Topic\Listpost" />
+    <preference for="Mageplaza\Blog\Block\MonthlyArchive\Widget" type="Bap\CustomBlog\Block\MonthlyArchive\Widget" />
+    <preference for="Mageplaza\Blog\Helper\Data" type="Bap\CustomBlog\Helper\Data" />
+</config>

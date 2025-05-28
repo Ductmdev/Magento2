@@ -1,0 +1,169 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+$tempData = ($block->getData('temp_data'));
+?>
+<section class="bcs_fr-01-05-02">
+    <div class="bcs_step bcs_pt5">
+        <div class="bcs_bar">
+            <div class="bcs_indicate bcs_s2"></div>
+        </div><div class="bcs_step1 bcs_stepIconActive"><?= $block->escapeHtml(__('Entering information')) ?></div>
+        <div class="bcs_step2 bcs_stepIconActive bcs_current"><?= $block->escapeHtml(__('Confirm input contents')) ?></div>
+        <div class="bcs_step3 bcs_stepIcon"><?= $block->escapeHtml(__('Registration completed')) ?></div>
+    </div>
+</section>
+<div class="container-info" style="border: unset">
+    <h1 id="TMP-H1-1" class="heading_1 bcs_mb20"><?= $block->escapeHtml(__('Confirm input contents')) ?></h1>
+    <p class="lead"><?= $block->escapeHtml(__('If you are satisfied with the information below, please press "Register" to proceed to the completion screen.')) ?></p>
+</div>
+<div class="container-info">
+    <table class="info">
+        <tr>
+            <th class="label"><?= $block->escapeHtml(__('Name')); ?></th>
+            <td class="value"><?= $block->escapeHtml($tempData['lastname']) . ' ' . $block->escapeHtml($tempData['firstname']); ?></td>
+        </tr>
+        <tr>
+            <th class="label"><?= $block->escapeHtml(__('Furigana')); ?></th>
+            <td class="value"><?= $block->escapeHtml($tempData['lastnamekana']) . ' ' . $block->escapeHtml($tempData['firstnamekana']); ?></td>
+        </tr>
+        <tr>
+            <th class="label"><?= $block->escapeHtml(__('Gender')); ?></th>
+            <td class="value">
+                <?php
+                if ($tempData['gender'] == 1) {
+                    echo $block->escapeHtml(__('Male'));
+                } elseif ($tempData['gender'] == 2) {
+                    echo $block->escapeHtml(__('Female'));
+                } else {
+                    echo $block->escapeHtml(__('No answer'));
+                }
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <th class="label"><?= $block->escapeHtml(__('date of birth')); ?></th>
+            <td class="value">
+                <?=
+                    $block->escapeHtml($tempData['year']) . $block->escapeHtml(__('YY')) .
+                    $block->escapeHtml($tempData['month']) . $block->escapeHtml(__('MM')) .
+                    $block->escapeHtml($tempData['day']) . $block->escapeHtml(__('Day'))
+                ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="container-info">
+    <table class="info">
+        <?php
+            $postcode = $tempData['postcode'];
+
+            if (strpos($postcode, '-') === false) {
+                $postcode = substr_replace($postcode, '-', 3, 0);
+            }
+        ?>
+        <tr>
+            <th class="label"><?= $block->escapeHtml(__('ZIP/Post Code')); ?></th>
+            <td class="value"><?= $block->escapeHtml($postcode); ?></td>
+        </tr>
+        <?php
+        $street = $tempData['temp_street'][0];
+        foreach ($tempData['address'] as $v) {
+            $street = $street . ' ' . $v;
+        }
+        ?>
+        <tr>
+            <th class="label"><?= $block->escapeHtml(__('Address')); ?></th>
+            <td class="value"><?= $block->escapeHtml($tempData['region']) . ' ' . $block->escapeHtml($tempData['city']) . ' ' . $street ?></td>
+        </tr>
+        <?php
+        foreach ($tempData as $key => $value) {
+            switch ($key) {
+                case 'telephone': ?>
+                    <tr>
+                        <th class="label"><?= $block->escapeHtml(__('Phone Number')); ?></th>
+                        <td class="value"><?= $block->escapeHtml($value); ?></td>
+                    </tr>
+                    <?php break; ?>
+                <?php case 'fax': ?>
+                    <tr>
+                        <th class="label"><?= $block->escapeHtml(__('Fax')); ?></th>
+                        <td class="value"><?= $block->escapeHtml($value); ?></td>
+                    </tr>
+                    <?php break; ?>
+                <?php case 'company': ?>
+                    <tr>
+                        <th class="label"><?= $block->escapeHtml(__('Company')); ?></th>
+                        <td class="value"><?= $block->escapeHtml($value); ?></td>
+                    </tr>
+                    <?php break; ?>
+                <?php
+            }
+        }
+        ?>
+    </table>
+</div>
+<div class="container-info">
+    <table class="info">
+        <?php
+        foreach ($tempData as $key => $value) {
+            switch ($key) {
+                case 'email': ?>
+                    <tr>
+                        <th class="label"><?= $block->escapeHtml(__('Member ID (email address)')); ?></th>
+                        <td class="value"><?= $block->escapeHtml($value); ?></td>
+                    </tr>
+                    <?php break; ?>
+                <?php case 'password': ?>
+                    <tr>
+                        <th class="label"><?= $block->escapeHtml(__('Password')); ?></th>
+                        <td class="value"><?= $block->escapeHtml('********'); ?></td>
+                    </tr>
+                    <?php break; ?>
+                <?php
+            }
+        }
+        ?>
+    </table>
+</div>
+<div class="container-info">
+    <table class="info">
+        <tr>
+            <th class="label"><?= $block->escapeHtml(__('Sign Up for Newsletter')); ?></th>
+            <td class="value"><?= ($tempData['is_subscribed'] == 1) ? $block->escapeHtml(__('Receive great deals such as sales and coupons')) : $block->escapeHtml(__('I do not receive advantageous information such as sales and coupons')) ?></td>
+        </tr>
+    </table>
+</div>
+<?php
+    $tempData['dob'] = $tempData['year'] . '/' . $tempData['month'] . '/' . $tempData['day'];
+    $tempData['postcode'] = str_replace('-', '', $postcode);
+    $tempData['street'] = array_merge($tempData['temp_street'], $tempData['address']);
+?>
+<form id="confirm" action="<?= $block->escapeUrl($block->getUrl('customer/account/createpost', ['_query' => $tempData])) ?>" method="post">
+    <input type="hidden" name="create_address" value="1">
+    <input type="hidden" name="default_billing" value="1">
+    <input type="hidden" name="default_shipping" value="1">
+    <div class="actions-toolbar cus">
+        <div class="primary">
+            <button type="submit" id="preview-submit" class="action submit primary" title="<?= $block->escapeHtmlAttr(__('Register')) ?>"><span><?= $block->escapeHtml(__('Register')) ?></span></button>
+        </div>
+    </div>
+</form>
+<div class="container-info" style="border: unset">
+    <a class="action" href="<?= $block->escapeUrl($block->getUrl('customer/account/create', ['_query' => ['token' => $tempData['token']]])) ?>"><span><?= $block->escapeHtml(__('Back')) ?></span></a>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#confirm": {
+            "Bap_Register/js/confirm": {
+                "urlTimeout": "<?= $block->getUrl("customer/account/timeout") ?>",
+                "token": "<?= $tempData['token'] ?>"
+            }
+        }
+    }
+</script>
+
+<style>
+    h1.page-title {
+        display: none !important;
+    }
+</style>

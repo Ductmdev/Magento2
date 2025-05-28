@@ -1,0 +1,77 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<div id="CONTENTS">
+    <div class="content_inner">
+        <h1 class="heading_1 bcs_mb40_pc bcs_mb15_sp"><?= $block->escapeHtml(__('Verification number input')) ?></h1>
+        <div class="columns column_1">
+            <div id="MAIN-AREA" class="column">
+                <div class="sp_padding">
+                    <form name="AuthNumberForm" method="post" id="form-validate" action="<?= $block->getUrl('customer/account/verifypost') ?>">
+                        <p class="mv5"><?= $block->escapeHtml(__('I have sent the verification number to %1. <br>Please enter the authentication number below and press the "Authenticate" button.',  $block->escapeHtmlAttr($block->getData('email')) ), ['br']) ?></p>
+                        <div id="TMP-TBL-1" class="table sp_transform type_1 mt5">
+                            <div class="tr">
+                                <div class="cell td table_wrapper">
+                                    <div class="table_inner">
+                                        <div class="tr">
+                                            <div class="cell th vat pc_w260">
+                                                <div class="pc_dtb sp_db w100per">
+                                                    <span class="bcs_label"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Certification number (6 digit half-width numbers)')) ?>
+                                                </div>
+                                            </div>
+                                            <div class="cell td vam">
+                                                <div class="dtb w100per">
+                                                    <div class="dtr">
+                                                        <div class="clearfix">
+                                                            <input type="text" id="verify_code" name="verify_code" maxlength="6" class="fs_large sp_w100per sp_bsbb verify-code-required min-length-number-6" data-validate='{"verify-code-required":true, "min-length-number": 6}'>
+                                                            <div class="verify-error" style="display: none;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="verify_token" name="verify_token" value="<?= $block->escapeHtmlAttr($block->getData('verify_token')) ?>">
+                        <div class="mt40_1 clearfix">
+                            <div class="actions-toolbar cus">
+                                <div class="primary">
+                                    <button type="submit" class="action submit primary" title="<?= $block->escapeHtmlAttr(__('Authenticate')) ?>"><span><?= $block->escapeHtml(__('Authenticate')) ?></span></button>
+                                </div>
+                            </div>
+                            <div class="mv20 pc_tac">
+                                <p class="bcs_btn_gray bcs_btn_gray02">
+                                    <a href="<?= $block->getUrl('customer/account/register') ?>"><?= $block->escapeHtmlAttr(__('Back')) ?></a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#CONTENTS": {
+            "Bap_Register/js/verification": {
+                "formSelector": "#form-validate",
+                "inputSelector": "#verify_code",
+                "errorContainerSelector": ".verify-error",
+                "urlVerify": "<?= $block->getUrl("customer/account/verifypost") ?>",
+                "urlTimeout": "<?= $block->getUrl("customer/account/timeout") ?>",
+                "verifyToken": "#verify_token"
+            }
+        }
+    }
+</script>
+
+<style>
+    h1.page-title {
+        display: none !important;
+    }
+</style>

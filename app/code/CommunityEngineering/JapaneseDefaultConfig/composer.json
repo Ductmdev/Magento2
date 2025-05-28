@@ -1,0 +1,29 @@
+{
+    "name": "community-engineering/module-japanese-default-config",
+    "version": "1.0.3",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "description": "Magento2 default configuration for Japanese merchants.",
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0",
+        "magento/framework": "^103.0.0"
+    },
+    "suggest": {
+        "magento/module-backend": "^102.0.0",
+        "magento/module-store": "^102.0.0",
+        "magento/module-directory": "^100.4.0",
+        "magento/module-customer": "^103.0.0",
+        "magento/module-user": "^101.2.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CommunityEngineering\\JapaneseDefaultConfig\\": ""
+        }
+    }
+}

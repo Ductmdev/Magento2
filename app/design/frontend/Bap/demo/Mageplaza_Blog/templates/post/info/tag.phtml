@@ -1,0 +1,12 @@
+<?php
+
+use Mageplaza\Blog\Block\Post\View;
+use Magento\Framework\Escaper;
+
+/** @var View $block */
+/** @var Escaper $escaper */
+$_post = $block->getPost();
+?>
+<?php if ($tagList = $block->getTagList($_post)) : ?>
+    | <span><i class="fa fa-tags"></i><?=  /* @noEscape */ __('Tags: %1', $tagList); ?></span>
+<?php endif; ?>

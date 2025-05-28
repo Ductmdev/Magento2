@@ -1,0 +1,41 @@
+{
+    "name": "community-engineering/module-japanese-address",
+    "version": "1.0.3",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "description": "Magento2 extension for proper Japanese Addresses format.",
+    "authors":[
+        {
+            "name": "Hirokazu Nishi",
+            "email": "nishi@veriteworks.co.jp",
+            "homepage": "https://veriteworks.co.jp/",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0",
+        "magento/framework": "^103.0.0",
+        "magento/module-eav": "^103.0.0",
+        "magento/module-customer": "^103.0.0",
+        "magento/module-checkout": "^100.4.0",
+        "magento/module-directory": "^100.4.0",
+        "magento/module-sales": "^103.0.0",
+        "magento/module-reports": "^100.4.0",
+        "magento/module-ui": "^101.2.0"
+    },
+    "suggest": {
+        "community-engineering/module-japanese-name": "^1.0.0",
+        "community-engineering/module-japanese-region": "^1.0.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "CommunityEngineering\\JapaneseAddress\\": ""
+        }
+    }
+}

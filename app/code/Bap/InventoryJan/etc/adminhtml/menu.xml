@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/menu.xsd">
+    <menu>
+        <add
+            id="Bap_InventoryJan::menu"
+            title="JAN Inventory Management"
+            module="Bap_InventoryJan"
+            sortOrder="50"
+            resource="Bap_InventoryJan::menu"
+        />
+        <add 
+            id="Bap_InventoryJan::inventory"
+            title="JAN Inventory List"
+            module="Bap_InventoryJan"
+            sortOrder="10"
+            action="inventoryjan/inventory/index"
+            resource="Bap_InventoryJan::inventory"
+            parent="Bap_InventoryJan::menu"
+        />
+    </menu>
+</config>

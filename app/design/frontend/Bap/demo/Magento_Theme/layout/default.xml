@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <body>
+    <referenceBlock name="logo">
+      <arguments>
+        <argument name="logo_file" xsi:type="string">images/logo.png</argument>
+        <argument name="logo_img_width" xsi:type="number">310</argument>
+        <argument name="logo_img_height" xsi:type="number">60</argument>
+      </arguments>
+    </referenceBlock>
+    <referenceContainer name="header-wrapper">
+      <container name="header-actions" htmlTag="div" htmlClass="header-actions" before="minicart">
+        <block class="Magento\Framework\View\Element\Template" name="header.history" template="Magento_Theme::html/history.phtml">
+          <arguments>
+            <argument name="label" xsi:type="string">History</argument>
+          </arguments>
+        </block>
+        <block class="Magento\Framework\View\Element\Template" name="header.wishlist" template="Magento_Theme::html/wishlist.phtml">
+          <arguments>
+            <argument name="label" xsi:type="string">Wishlist</argument>
+          </arguments>
+        </block>
+      </container>
+    </referenceContainer>
+    <move element="compare-link-wrapper" destination="header-wrapper" after="logo" />
+    <move element="top.search" destination="catalog.topnav" after="catalog.topnav" />
+
+    <referenceBlock name="header.links">
+      <block class="Magento\FrameWork\View\Element\Html\Link" name="guide-link">
+        <arguments>
+          <argument name="label" xsi:type="string" translate="true">Guide</argument>
+          <argument name="path" xsi:type="string">guide</argument>
+          <argument name="class" xsi:type="string">header_account_link</argument>
+        </arguments>
+      </block>
+      <block class="Magento\FrameWork\View\Element\Html\Link" name="question-link">
+        <arguments>
+          <argument name="label" xsi:type="string" translate="true">Question</argument>
+          <argument name="path" xsi:type="string">question</argument>
+          <argument name="class" xsi:type="string">header_account_link</argument>
+        </arguments>
+      </block>
+    </referenceBlock>
+    <move element="authorization-link-login" destination="header.links" after="register-link"/>
+    <move element="customer" destination="header.links" after="question-link" />
+    <referenceContainer name="header.panel">
+      <container htmlTag="div" htmlClass="text-upper">
+        <block class="Magento\Framework\View\Element\Text" name="text-upper-logo">
+          <action method="setText">
+            <argument name="text" xsi:type="string" translate="true">Business website / Seal printing, sticker and label specialty store</argument>
+          </action>
+        </block>
+      </container>
+    </referenceContainer>
+    <referenceBlock name="header" remove="true"/>
+
+    <!-- Custom footer configuration -->
+    <referenceContainer name="footer">
+      <block class="Magento\Framework\View\Element\Template" name="scroll_to_top" template="Magento_Theme::html/scroll-to-top.phtml"/>
+    </referenceContainer>
+    <referenceBlock name="footer_links" remove="true" />
+    <referenceBlock name="form.subscribe" remove="true" />
+  </body>
+</page>

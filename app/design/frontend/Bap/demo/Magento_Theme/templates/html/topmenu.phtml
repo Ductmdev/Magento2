@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * @var \Magento\Theme\Block\Html\Topmenu $block
+ */
+
+$columnsLimit = $block->getColumnsLimit() ?: 0;
+$_menuHtml = $block->getHtml('level-top', 'submenu', 0);
+$menuDom = new DOMDocument();
+$menuDom->loadHTML('<?xml encoding="UTF-8">' . $_menuHtml);
+$body = $menuDom->firstElementChild ? $menuDom->firstElementChild->firstElementChild : null;
+if ($body && $body->childElementCount >= 4) {
+    $_menuHtml = '';
+    $i = 1;
+    foreach ($body->childNodes as $li) {
+        $_menuHtml .= $menuDom->saveHTML($li);
+        if ($i % 4 === 0) {
+            $_menuHtml .= '<div class="menu-line-umi-container"><div class="menu-line-umi"></div></div>';
+        }
+        $i++;
+    }
+}
+?>
+
+<nav class="navigation base-navigation" data-action="navigation">
+    <ul class="base-nav-item" data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <?= /* @noEscape */ $_menuHtml?>
+        <?= $block->getChildHtml() ?>
+        <div class="right-block-btn ui-menu-item display-not scroll-action-right">
+            <div class="histo-scroll">
+                <a href="/sales/order/history/">
+                    <div class="history-scroll-img">
+                        <img src="<?= $block->escapeUrl($block->getViewFileUrl('Magento_Theme::images/clock.png')) ?>"
+                            alt="history-icon"
+                            class="history-icon" />
+                    </div>
+                    <?= $block->escapeHtml(__('Purchase History')) ?>
+                </a>
+            </div>
+            <div class="favo-scroll">
+                <a href="/wishlist/">
+                    <div class="favo-scroll-img">
+                        <img src="<?= $block->escapeUrl($block->getViewFileUrl('Magento_Theme::images/heart.png')) ?>"
+                            alt="heart-icon"
+                            class="heart-icon" />
+                    </div>
+                    <?= $block->escapeHtml(__('Favorite')) ?>
+                </a>
+            </div>
+            <div class="right-block-cart-scroll ui-widget-content ui-menu-divider"></div>
+        </div>
+    </ul>
+</nav>
+
+<script>
+    require([ "jquery" ], function($){
+        function handleScroll() {
+            if ($(window).scrollTop() > 135) {
+                $(".minicart-wrapper").detach().appendTo('.right-block-cart-scroll');
+            } else {
+                $(".minicart-wrapper").detach().appendTo('.minicart-wrapper-append');
+            }
+        }
+        const mediaQuery = window.matchMedia('(min-width: 768px)');
+        if (mediaQuery.matches) {
+            handleScroll();
+        }
+        if (mediaQuery.matches) {
+            $(window).scroll(handleScroll);
+        }
+        $(window).scroll(function(){
+            if ($(this).scrollTop() > 135) {
+                $('.nav-sections').addClass('nav-sections-fix');
+                $('.right-block-btn').removeClass('display-not');
+                $('.right-block-btn').addClass('display-yes');
+                $('.right-block-search').addClass('right-block-search-scroll');
+                $('.minicart-wrapper').addClass('minicart-wrapper-scroll');
+            } else {
+                $('.nav-sections').removeClass('nav-sections-fix');
+                $('.right-block-btn').removeClass('display-yes');
+                $('.right-block-btn').addClass('display-not');
+                $('.right-block-search').removeClass('right-block-search-scroll');
+                $('.minicart-wrapper').removeClass('minicart-wrapper-scroll');
+            }
+        });
+    });
+</script>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget_definition.xsd">
+    <widget id="bestseller_products" class="Bap\BestsellerWidget\Block\Widget\BestsellerProducts">
+        <label translate="true">Best Seller Products Products</label>
+        <description translate="true">Show Top 20 Best Seller Products in a Slider</description>
+        <parameters>
+            <parameter name="products_count" xsi:type="text" required="true" visible="true">
+                <label translate="true">Number of Products to Display</label>
+                <value>20</value>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

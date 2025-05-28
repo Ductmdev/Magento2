@@ -1,0 +1,47 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<section class="bcs_fr-01-05-02">
+    <div class="bcs_step bcs_pt5">
+        <div class="bcs_bar">
+            <div class="bcs_indicate bcs_s3"></div>
+        </div><div class="bcs_step1 bcs_stepIconActive"><?= $block->escapeHtml(__('Entering information')) ?></div>
+        <div class="bcs_step2 bcs_stepIconActive"><?= $block->escapeHtml(__('Confirm input contents')) ?></div>
+        <div class="bcs_step3 bcs_stepIconActive bcs_current"><?= $block->escapeHtml(__('Registration completed')) ?></div>
+    </div>
+</section>
+<div id="CONTENTS">
+    <div class="content_inner">
+        <h1 class="heading_1 bcs_title_lv1"><?= $block->escapeHtml(__('Membership registration completed')) ?></h1>
+        <div class="columns column_1">
+            <div id="MAIN-AREA" class="column">
+                <div class="sp_padding">
+
+                    <div id="TMP-ENCLOSE-X" class="enclose_default tac">
+                        <p class="fs_large_3 bold tac _accent mb20"><?= $block->escapeHtml(__("thank you very much. <br>First name and last name's member registration has been completed."), ['br']) ?></p>
+                        <p class="fs_large tac  mb10"><?= $block->escapeHtml(__('Registration details can be changed at any time from <a href="%1">member menu</a>.', $block->getUrl('customer/account')), ['a']) ?></p>
+                        <p class="tac  mb10"><?= $block->escapeHtml(__('For "Customers who have registered their point card online" and "Customers who do not have a point card and have registered as a new member", if you use the point card function at a store, it will take approximately 15 minutes after registration is completed.')) ?></p>
+                        <p class="cl_red tac">※<?= $block->escapeHtml(__('On the day the point card is issued')) ?></p>
+                        <p class="tac  mb10"><?= $block->escapeHtml(__('・Only "addition of points" is possible. <br>・You cannot use points.'), ['br']) ?></p>
+                    </div>
+                </div>
+                <div class="bcs_sideColumn">
+                    <div class="bcs_orderBox">
+                        <p name="orderBtn" class="bcs_btn_large_green" style="display: block;"><a href="<?= $block->getUrl('customer/account') ?>"><?= $block->escapeHtml(__('Click here for member menu')) ?></a></p>
+                    </div>
+                </div>
+                <div class="bcs_buttonBox">
+                    <p class="bcs_btn_gray">
+                        <a href="<?= $block->getUrl() ?>" id="TMP-BTN-X" name="backward" style="width: 200px"><?= $block->escapeHtml(__('Return to top page')) ?></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    h1.page-title {
+        display: none !important;
+    }
+</style>

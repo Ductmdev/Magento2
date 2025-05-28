@@ -1,0 +1,65 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<div class="message error email-exist" style="display: none"><?= $block->escapeHtml(__('There is already an account with this email address. If you are sure that it is your email address, <a href="%1">click here</a> to get your password and access your account.', $block->getUrl('customer/account/forgotpassword')), ['a']); ?></div>
+<section class="fr-03-04-06">
+    <div class="bcs_incl2 inclArea">
+        <h1 id="TMP-H1-1" class="bcs_title_lv1"><?= $block->escapeHtml(__('Member ID (email address) registration')) ?></h1>
+        <ul class="bcs_comment">
+            <li><?= $block->escapeHtml(__('We will send you an email with your verification number. Please set your settings so that you can receive emails from %1.', 'support@cc.bap.com')) ?>。</li>
+            <li id="infoCheck"><?= __('Regarding the handling of personal information, please check <a href="%1" target="_blank">here</a> and agree before registering. If you do not agree, the registration procedure will be cancelled.', 'https://bap-software.net/privacy/') ?></li>
+        </ul>
+        <form name="mailAddressCheckForm" method="post" action="<?= $block->getUrl('customer/account/registerpost') ?>" id="form-validate">
+            <table class="bcs_table">
+                <tbody>
+                <tr>
+                    <th class=""><span class="bcs_label"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('By Email')) ?><p style="margin-left: 2.5em;">（<?= $block->escapeHtml(__('Alphanumeric')) ?>）</p></th>
+                    <td class="">
+                        <input class="input-text email-required" id="email" type="email" name="email" maxlength="128" placeholder="<?= $block->escapeHtmlAttr(__('Example) account@domain.com')) ?>" data-validate='{"email-required":true, "email-validate":true}'>
+                        <div class="email-disable" style="display: none;margin-top: 7px;color: #e02b27;font-size: 1.2rem;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class=""><span class="bcs_label"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Name (full-width)')) ?></th>
+                    <td class="">
+                        <div class="fullName">
+                            <span class="bcs_spdb"><input class="input-text lastname-required" id="lastname" type="text" name="lastname" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('Last Name')) ?>" data-validate="{'lastname-required':true}"></span>
+                            <span><input class="input-text firstname-required" id="firstname" type="text" name="firstname" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('First Name')) ?>" data-validate="{'firstname-required':true}"></span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class=""><span class="bcs_label"><?= $block->escapeHtml(__('Is Required')) ?></span><?= $block->escapeHtml(__('Furigana (full-width)')) ?></th>
+                    <td class="">
+                        <div class="fullName">
+                            <span class="bcs_spdb"><input class="input-text lastnamekana-required validate-lastnamekana" id="lastnamekana" type="text" name="lastnamekana" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('Sei')) ?>" data-validate='{"lastnamekana-required":true, "validate-lastnamekana": true}'></span>
+                            <span><input class="input-text firstnamekana-required validate-firstnamekana" id="firstnamekana" type="text" name="firstnamekana" maxlength="25" placeholder="<?= $block->escapeHtmlAttr(__('May')) ?>" data-validate='{"firstnamekana-required": true, "validate-firstnamekana": true}'></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="actions-toolbar cus">
+                <div class="primary">
+                    <button type="submit" class="action submit primary" title="<?= $block->escapeHtmlAttr(__('Register')) ?>"><span><?= $block->escapeHtml(__('Register')) ?></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "Bap_Register/js/register": {
+                "urlRegister": "<?= $block->getUrl("customer/account/registerpost") ?>"
+            }
+        }
+    }
+</script>
+
+<style>
+    h1.page-title {
+        display: none !important;
+    }
+</style>

@@ -1,0 +1,24 @@
+<?php
+
+use Mageplaza\Blog\Block\Widget\Posts;
+use Magento\Framework\Escaper;
+
+/** @var Posts $block */
+/** @var Escaper $escaper */
+$posts = $block->getCollection();
+?>
+<div class="topic_news">
+    <div class="topic_new-head">
+        <div class="new-heading-blog"><?= $escaper->escapeHtml($block->getTitle()) ?></div>
+        <a class="all-topics" href="<?= $escaper->escapeUrl($block->getBlogUrl('')) ?>">➤<?= __('View more topics and news')?></a>
+    </div>
+    <div class="post-list-container mpcss" id="mpblog-list-container">
+        <?php foreach ($posts as $post) : ?>
+            <ul class="post-list-wrapper">
+                <li class="post-list-item">
+                    <?= /** @noEscape */ $block->getCustomPostInfo($post) ?>
+                </li>
+            </ul>
+        <?php endforeach; ?>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+{
+  "name": "bap/module-register",
+  "version": "1.0.0",
+  "description": "N/A",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "community-engineering/module-japanese-address": "1.0.*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Bap\\Register\\": ""
+    }
+  }
+}

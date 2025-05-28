@@ -1,0 +1,11 @@
+<?php
+/** @var \Bap\Announcement\Block\AnnouncementText $block */
+$isModuleActive = $block->getConfigurationData('enable');
+$announcementText = $block->getConfigurationData('announcement_text');
+
+if ($isModuleActive == 1){
+?>
+    <div class="announcement-text"><?= $block->escapeHtml($announcementText) ?></div>
+<?php
+}
+?>

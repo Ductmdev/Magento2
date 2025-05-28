@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="payment_method_assign_data_gmo_payment">
+        <observer name="gmo_payment_data_assign" instance="Bap\GmoPayment\Observer\DataAssignObserver" />
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="gmo_payment_sales_order_save_after" instance="Bap\GmoPayment\Observer\SalesOrderSaveObserver" />
+    </event>
+</config>

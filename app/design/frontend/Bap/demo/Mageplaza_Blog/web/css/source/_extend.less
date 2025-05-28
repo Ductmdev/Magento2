@@ -1,0 +1,118 @@
+.mp-blog-rss {
+  display: none !important;
+}
+
+.topic_news {
+  border: 1px solid #EBEBEB;
+  padding: 3%;
+  height: auto;
+  width: 94%;
+  float: left;
+
+  .topic_new-head {
+    float: left;
+    width: 100%;
+    margin-bottom: -14px;
+    height: auto;
+
+    .new-heading-blog {
+      color: #000;
+      font-size: 22px;
+      font-family: 'Yu Gothic';
+      font-weight: 700;
+      float: left;
+    }
+
+    a.all-topics {
+      float: right;
+      color: #000;
+      font-size: 12px;
+      font-family: 'Yu Gothic';
+      font-weight: 700;
+    }
+
+    a.all-topics:hover {
+      color: #01a7e3;
+    }
+  }
+
+  ul.post-list-wrapper {
+    display: inline;
+    list-style: none;
+    clear: both;
+
+    .post-list-item {
+      margin-bottom: 20px;
+    }
+
+    .post-list-item > .category {
+      float: left;
+      color: #fff;
+    }
+  }
+
+  .post-date {
+    float: left;
+    font-size: 11px;
+    margin-top: 3px;
+    margin-right: 18px;
+    font-family: Hiragino Kaku Gothic ProN W3;
+  }
+
+  .post-title {
+    float: left;
+
+    .post-link-title {
+      color: #000;
+      font-size: 14px;
+      font-family: 'Yu Gothic';
+      font-weight: 400;
+      margin-left: 16px;
+    }
+
+    .post-link-title:hover {
+      color: #01a7e3;
+    }
+  }
+
+  .category {
+    .mp-info {
+      background: #01A7E3;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 12px;
+      text-align: center;
+      font-weight: 600;
+      margin-left: 10px;
+      float: left;
+      width: 90px;
+      height: 24px;
+      line-height: 24px;
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .topic_news {
+    ul.post-list-wrapper {
+      display: inherit;
+      list-style: none;
+      margin-left: -40px;
+
+      .post-list-item > .category {
+        float: inherit;
+        clear: both;
+      }
+    }
+
+    .post-date {
+      float: inherit;
+      clear: both;
+    }
+
+    .post-title {
+      float: inherit;
+      clear: both;
+    }
+  }
+}

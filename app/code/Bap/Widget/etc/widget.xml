@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="BAP_widget" class="Bap\Widget\Block\Widget\ImageWidget">
+        <label>BAP Widget</label>
+        <description>BAP Widget</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" visible="true" required="true">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="image" xsi:type="block" visible="true">
+                <label translate="true">Image Uploader</label>
+                <block class="Bap\Widget\Block\Adminhtml\Widget\ImageChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string">Choose Image...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

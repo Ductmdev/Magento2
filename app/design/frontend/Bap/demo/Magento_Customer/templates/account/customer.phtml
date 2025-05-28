@@ -1,0 +1,13 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var Magento\Customer\Block\Account\Customer $block */
+?>
+<?php if ($block->customerLoggedIn()) : ?>
+    <li>
+        <a href="/customer/account" class="header_account_link"><?= $block->escapeHtml(__('My page')) ?></a>
+    </li>
+<?php endif; ?>

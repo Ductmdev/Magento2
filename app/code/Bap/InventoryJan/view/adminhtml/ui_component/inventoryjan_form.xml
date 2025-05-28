@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">inventoryjan_form.inventoryjan_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Inventory Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Bap\InventoryJan\Block\Adminhtml\Inventory\Edit\Button\Save"/>
+            <button name="back" class="Bap\InventoryJan\Block\Adminhtml\Inventory\Edit\Button\Back"/>
+        </buttons>
+        <namespace>inventoryjan_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>inventoryjan_form.inventoryjan_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="inventoryjan_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/store" />
+        </settings>
+        <dataProvider class="Bap\InventoryJan\Model\DataProvider" name="inventoryjan_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>source_item_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+			<label translate="true"></label>
+		</settings>
+        <field name="bap_jancode" formElement="input" sortOrder="10">
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">JAN Code</label>
+                <disabled>true</disabled>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+			</settings>
+		</field>
+        <field name="product_name" formElement="input" sortOrder="20">
+			<settings>
+				<dataType>text</dataType>
+				<label translate="true">Product Name</label>
+                <disabled>true</disabled>
+			</settings>
+		</field>
+        <button name="select_product_btn">
+            <argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+                    <item name="template" xsi:type="string">Bap_InventoryJan/form/field</item>
+                    <item name="additionalClasses" xsi:type="string">select_product_btn</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="0" xsi:type="array">
+							<item name="targetName" xsi:type="string">${$.parentName}.select_product_modal</item>
+							<item name="actionName" xsi:type="string">openModal</item>
+						</item>
+						<item name="1" xsi:type="array">
+                            <item name="targetName" xsi:type="string">${$.parentName}.select_product_modal.product_listing_loader</item>
+                            <item name="actionName" xsi:type="string">render</item>
+                        </item>
+                    </item>
+				</item>
+            </argument>
+            <settings>
+                <componentType>button</componentType>
+                <title translate="true">Select</title>
+                <displayAsLink>false</displayAsLink>
+            </settings>
+        </button>
+		<field name="source_code" component="Magento_Ui/js/form/element/ui-select" sortOrder="40" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">false</item>
+                    <item name="showCheckbox" xsi:type="boolean">false</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="isRemoveSelectedIcon" xsi:type="boolean">false</item>
+                    <item name="levelsVisibility" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/grid/filters/elements/ui-select</elementTmpl>
+                <label translate="true">Warehouse</label>
+                <componentType>field</componentType>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+				</validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Bap\InventoryJan\Model\Filter\SourceCodeOptions"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+		<field name="status" formElement="select">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Stock Status</label>
+                <validation>
+					<rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="label" xsi:type="string" translate="true">Out Of Stock</item>
+                            </option>
+                            <option name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="label" xsi:type="string" translate="true">In Stock</item>
+                            </option>
+                        </options>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="quantity" formElement="input" sortOrder="60">
+			<settings>
+				<dataType>number</dataType>
+				<label translate="true">Quantity In Stock</label>
+				<validation>
+					<rule name="validate-number" xsi:type="boolean">true</rule>
+				</validation>
+			</settings>
+		</field>
+		<modal name="select_product_modal">
+			<settings>
+				<options>
+					<option name="title" xsi:type="string" translate="true">Select</option>
+					<option name="type" xsi:type="string">popup</option>
+					<option name="responsive" xsi:type="boolean">true</option>
+					<option name="modalClass" xsi:type="string">select_product_modal</option>
+				</options>
+			</settings>
+			<insertForm name="product_listing_loader">
+                <settings>
+                    <toolbarContainer>${ $.parentName }</toolbarContainer>
+                    <ns>inventoryjan_product_jancode_list</ns>
+                    <externalProvider>${ $.ns }.product_jancode_listing_data_source</externalProvider>
+                </settings>
+            </insertForm>
+		</modal>
+    </fieldset>
+</form>

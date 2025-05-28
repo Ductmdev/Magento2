@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Bap\Register\Api\TempCustomerRepositoryInterface" type="Bap\Register\Model\TempCustomerRepository"/>
+    <preference for="Bap\Register\Api\Data\TempCustomerInterface" type="Bap\Register\Model\TempCustomer"/>
+    <preference for="Bap\Register\Api\AccountManagementInterface" type="Bap\Register\Model\AccountManagement"/>
+    <preference for="Bap\Register\Model\EmailNotificationInterface" type="Bap\Register\Model\EmailNotification"/>
+    <preference for="Magento\Customer\Block\Account\RegisterLink" type="Bap\Register\Block\Account\RegisterLink"/>
+    <preference for="Magento\Customer\Controller\Account\Create" type="Bap\Register\Controller\Account\Create"/>
+    <preference for="Magento\Customer\Controller\Account\CreatePost" type="Bap\Register\Controller\Account\CreatePost"/>
+</config>
